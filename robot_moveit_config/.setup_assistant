@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: Car_1
+    relative_path: urdf/my_robot_integration.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/Car_1.srdf
+  CONFIG:
+    author_name: Rutvik Kevadiya
+    author_email: rutvik08@umd.edu
+    generated_timestamp: 1638819588

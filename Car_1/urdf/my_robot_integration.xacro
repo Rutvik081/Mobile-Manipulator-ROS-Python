@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!-- Name your robot here -->
+<robot name ="Car_1" xmlns:xacro="http://wiki.ros.org/xacro">
+
+<!-- Include your urdf files here -->
+	<!-- Include Robot's urdf filepath -->
+	<xacro:include filename="$(find Car_1)/urdf/Car_1.urdf"/>
+
+<!--  Gazebo plugin for control here is already added for you -->
+	<gazebo>
+		<plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+			<robotNamespace>/Car_1</robotNamespace>
+			<controlPeriod>0.001</controlPeriod>
+			<legacyModeNS>false</legacyModeNS>
+		</plugin>
+	</gazebo>
+
+<!-- Gazebo plugin for differential drive -->
+
+	<gazebo>
+		<plugin name="diff_drive_controller" filename="libgazebo_ros_diff_drive.so">
+			<legacyMode>false</legacyMode>
+			<alwaysOn>true</alwaysOn>
+			<updateRate>1000.0</updateRate>
+			<leftJoint>FRW_Chassis, RRW_Chassis</leftJoint>
+			<rightJoint>FLW_Chassis, RLW_Chassis</rightJoint>
+			<wheelSeparation>1.460</wheelSeparation>
+			<wheelDiameter>0.3</wheelDiameter>
+			<wheelTorque>10</wheelTorque>
+			<publishTf>1</publishTf>
+			<odometryFrame>odomf</odometryFrame>
+			<commandTopic>cmd_vel</commandTopic>
+			<odometryTopic>odom</odometryTopic>
+			<robotBaseFrame>Chassis</robotBaseFrame>
+			<wheelAcceleration>2.8</wheelAcceleration>
+			<publishWheelJointState>true</publishWheelJointState>
+			<publishWheelTF>false</publishWheelTF>
+			<odometrySource>world</odometrySource>
+			<rosDebugLevel>Debug</rosDebugLevel>
+		</plugin>
+	</gazebo>
+
+<!-- Gazebo plugin for joint state publisher -->
+
+	<gazebo>
+		<plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+		<jointName>AB_Chassis, Bicep_AB, BW_Bicep, Elbow_BW, TW_Elbow</jointName>
+		</plugin>
+	</gazebo>
+
+<!-- Friction properties for wheels -->
+
+	<!-- <gazebo reference="FL_Wheel">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+	</gazebo>
+
+	<gazebo reference="FR_Wheel">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+	</gazebo>
+
+	<gazebo reference="RL_Wheel">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+	</gazebo>
+
+	<gazebo reference="RR_Wheel">
+		<mu1 value="1.0"/>
+		<mu2 value="1.0"/>
+		<kp value="10000000.0" />
+		<kd value="1.0" />
+		<fdir1 value="1 0 0"/>
+	</gazebo> -->
+
+</robot>	

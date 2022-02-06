@@ -1,0 +1,11 @@
+controller_list:
+  - name: /Car_1/arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - AB_Chassis
+      - Bicep_AB
+      - BW_Bicep
+      - Elbow_BW
+      - TW_Elbow

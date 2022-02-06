@@ -1,0 +1,36 @@
+<launch> 
+ 
+	<include file= "$(find gazebo_ros)/launch/empty_world.launch" /> 
+		
+	<param name= "robot_description" command="$(find xacro)/xacro --inorder $(find Car_1)/urdf/my_robot_integration.xacro " />
+    <param name = "my_robot" value="Car_1"/> 
+	<arg name ="init_pose" value="-x 0 -y 0 -z 0 -R 0 -P 0 -Y 0"/>
+    
+	<rosparam file="$(find Car_1)/config/config_controllers.yaml" command="load"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+        <param name="use_gui" value="False"/>
+    </node>
+
+    <node pkg="tf" type="static_transform_publisher" name="map_to_base" args="1 0 0 0 0 0 1 /map /Chassis 10" />
+
+    <node name="controller_spwaner" pkg="controller_manager" type="spawner" respawn="false"
+    	output="screen" ns="/Car_1" args="robot_base_joint_publisher robot_base_velocity_controller arm_controller" />
+
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>	
+
+    <node
+		name="spawn_model"
+		pkg="gazebo_ros"
+		type="spawn_model"
+		args="$(arg init_pose) -param robot_description -urdf -model my_robot"
+		output="screen"/>
+
+    <node
+    name="fake_joint_calibration"
+    pkg="rostopic"
+    type="rostopic"
+    args="pub /calibrated std_msgs/Bool true" />
+
+
+</launch>
